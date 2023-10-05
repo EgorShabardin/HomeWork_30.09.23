@@ -4,7 +4,7 @@ namespace Тумаков___Лабораторная_работа__5
 {
     class Program
     {
-        static int MaxNumber(int firstNumber, int secondNumber)
+        static int CalculatesMaxValue(int firstNumber, int secondNumber)
         {
             if (firstNumber > secondNumber)
             {
@@ -15,13 +15,13 @@ namespace Тумаков___Лабораторная_работа__5
                 return secondNumber;
             }
         }
-        static void ChangeValue(ref string firstValue, ref string secondValue)
+        static void ChangesValue(ref string firstValue, ref string secondValue)
         {
             string thirdValue = firstValue;
             firstValue = secondValue;
             secondValue = thirdValue;
         }
-        static bool FactorialCycle(out int factorial, int enteredNumber)
+        static bool CalculateFactorialCycle(out int factorial, int enteredNumber)
         {
             try
             {
@@ -29,10 +29,7 @@ namespace Тумаков___Лабораторная_работа__5
 
                 for (int i = 1; i <= enteredNumber; i++)
                 {
-                    checked
-                    {
-                        factorial *= i;
-                    }
+                    factorial = checked(factorial * i);
                 }
                 return true;
             }
@@ -42,17 +39,18 @@ namespace Тумаков___Лабораторная_работа__5
                 return false;
             }
         }
-        static int FactorialRecursion(int enteredNumber)
+        static int CalculateFactorialRecursion(int enteredNumber)
         {
             if (enteredNumber == 1)
             {
                 return 1;
             }
-            return enteredNumber * FactorialRecursion(enteredNumber - 1);
+            return enteredNumber * CalculateFactorialRecursion(enteredNumber - 1);
         }
-        static int EuclidAlgorithm(int firstNumber, int secondNumber)
+        static int CalculateGCD(int firstNumber, int secondNumber)
         {
             int remainder, result;
+
             do
             {
                 remainder = firstNumber % secondNumber;
@@ -63,21 +61,21 @@ namespace Тумаков___Лабораторная_работа__5
 
             return result;
         }
-        static int EuclidAlgorithm(int firstNumber, int secondNumber, int thirdNumber)
+        static int CalculateGCD(int firstNumber, int secondNumber, int thirdNumber)
         {
-            int divider = EuclidAlgorithm(firstNumber, secondNumber);
-            int result = EuclidAlgorithm(divider, thirdNumber);
+            int divider = CalculateGCD(firstNumber, secondNumber);
+            int result = CalculateGCD(divider, thirdNumber);
 
             return result;
         }
-        static int FibonacciNumbers(int numberValue)
+        static int CalculateFibonacciNumbers(int numberValue)
         {
             if (numberValue == 1 || numberValue == 2)
             {
                 return 1;
             }
 
-            return FibonacciNumbers(numberValue - 1) + FibonacciNumbers(numberValue - 2);
+            return CalculateFibonacciNumbers(numberValue - 1) + CalculateFibonacciNumbers(numberValue - 2);
         }
         static void Main(string[] args)
         {
@@ -118,7 +116,7 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if (firstResult && secondResult)
                             {
-                                maxNumber = MaxNumber(firstNumber, secondNumber);
+                                maxNumber = CalculatesMaxValue(firstNumber, secondNumber);
 
                                 Console.WriteLine($"\nmax({firstNumber}, {secondNumber}) = {maxNumber}");
                                 Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
@@ -144,9 +142,9 @@ namespace Тумаков___Лабораторная_работа__5
                         Console.Write("Введите второе значение: ");
                         secondValue = Console.ReadLine();
 
-                        ChangeValue(ref firstValue, ref secondValue);
+                        ChangesValue(ref firstValue, ref secondValue);
 
-                        Console.WriteLine($"\nЗначения поменялись местами! Первое значение - {firstValue}, второе значение - {secondValue}");
+                        Console.WriteLine($"\nЗначения поменялись местами. Первое значение - {firstValue}, второе значение - {secondValue}");
                         Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
                         Console.ReadKey();
                         Console.Clear();
@@ -168,7 +166,7 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if (parseResult && enteredNumber > 0)
                             {
-                                factorialResult = FactorialCycle(out factorial, enteredNumber);
+                                factorialResult = CalculateFactorialCycle(out factorial, enteredNumber);
 
                                 if (factorialResult)
                                 {
@@ -201,22 +199,12 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if (parseResult && enteredNumber > 0)
                             {
-                                factorial = FactorialRecursion(enteredNumber);
+                                factorial = CalculateFactorialRecursion(enteredNumber);
 
-                                if (factorial == 0)
-                                {
-                                    Console.WriteLine($"\nПри вычислении {enteredNumber}! получилось слишком большое число. Его не получится отобразить!\n");
-                                    Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
-                                    Console.ReadKey();
-                                    Console.Clear();
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"\n{enteredNumber}! = {factorial}\n");
-                                    Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
-                                    Console.ReadKey();
-                                    Console.Clear();
-                                }
+                                Console.WriteLine($"\n{enteredNumber}! = {factorial}\n");
+                                Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
+                                Console.ReadKey();
+                                Console.Clear();
                             }   
                             else
                             {
@@ -242,13 +230,13 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if ((firstResult && secondResult) && (firstNumber > 0 && secondNumber > 0))
                             {
-                                gsd = EuclidAlgorithm(firstNumber, secondNumber);
+                                gsd = CalculateGCD(firstNumber, secondNumber);
 
                                 Console.WriteLine($"\nНОД({firstNumber}, {secondNumber}) = {gsd}\n");           
                             }
                             else
                             {
-                                Console.WriteLine("Вы ввели не число или оно не является натуральным (натуральные числа - это числа, большие нуля). Повторите попытку\n");
+                                Console.WriteLine("\nВы ввели не число или оно не является натуральным (натуральные числа - это числа, большие нуля). Повторите попытку\n");
                             }
                         } while (!((firstResult && secondResult) && (firstNumber > 0 && secondNumber > 0)));
 
@@ -263,7 +251,7 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if ((firstResult && secondResult && thirdResult) && (firstNumber > 0 && secondNumber > 0 && thirdNumber > 0))
                             {
-                                gsd = EuclidAlgorithm(firstNumber, secondNumber, thirdNumber);
+                                gsd = CalculateGCD(firstNumber, secondNumber, thirdNumber);
 
                                 Console.WriteLine($"\nНОД({firstNumber}, {secondNumber}, {thirdNumber}) = {gsd}");
                                 Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
@@ -272,7 +260,7 @@ namespace Тумаков___Лабораторная_работа__5
                             }
                             else
                             {
-                                Console.WriteLine("Вы ввели не число или оно не является натуральным (натуральные числа - это числа, большие нуля). Повторите попытку!\n");
+                                Console.WriteLine("\nВы ввели не число или оно не является натуральным (натуральные числа - это числа, большие нуля). Повторите попытку!\n");
                             }
                         } while (!((firstResult && secondResult && thirdResult) && (firstNumber > 0 && secondNumber > 0 && thirdNumber > 0)));
                         break;
@@ -291,9 +279,9 @@ namespace Тумаков___Лабораторная_работа__5
 
                             if (parseResult && numberValue > 0)
                             {
-                                fibonacciNumber = FibonacciNumbers(numberValue);
+                                fibonacciNumber = CalculateFibonacciNumbers(numberValue);
 
-                                Console.WriteLine($"{numberValue} число из ряда Фибоначчи равно {fibonacciNumber}\n");
+                                Console.WriteLine($"\n{numberValue} число из ряда Фибоначчи равно {fibonacciNumber}");
                                 Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
                                 Console.ReadKey();
                                 Console.Clear();

@@ -5,16 +5,15 @@ namespace Решение_задач
 {
     class Program
     {
-        static void ChangeValue(int[] randomNumbers, int firstNumber, int secondNumber)
+        static void ChangesValue(int firstNumber, int secondNumber, int[] randomNumbers)
         {
             int firstIndex = Array.IndexOf(randomNumbers, firstNumber);
             int secondIndex = Array.IndexOf(randomNumbers, secondNumber);
-            int thirdNumber = firstNumber;
 
             randomNumbers[firstIndex] = secondNumber;
-            randomNumbers[secondIndex] = thirdNumber;
+            randomNumbers[secondIndex] = firstNumber;
         }
-        static int ActionsArrayNumbers(ref int product, out double averageValue, params int[] randomValues)
+        static int CalculationsArrayNumbers(ref int product, out double averageValue, params int[] randomValues)
         {
             int summ = 0;
             
@@ -28,100 +27,51 @@ namespace Решение_задач
 
             return summ;
         }
-        static void LatticeSymbolDrawing(int enteredNumber)
+        static void DrawingNumbers(string[] numberPictures)
         {
-            switch (enteredNumber)
+            try
             {
-                case 0:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n");
-                    break;
-                case 1:
-                    Console.WriteLine("\t    #\n" +
-                                      "\t  # #\n" +
-                                      "\t #  #\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n");
-                    break;
-                case 2:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t#####\n" +
-                                      "\t#    \n" +
-                                      "\t#    \n" +
-                                      "\t#####\n");
-                    break;
-                case 3:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t#####\n");
-                    break;
-                case 4:
-                    Console.WriteLine("\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n");
-                    break;
-                case 5:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t#    \n" +
-                                      "\t#    \n" +
-                                      "\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t#####\n");
-                    break;
-                case 6:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t#    \n" +
-                                      "\t#    \n" +
-                                      "\t#####\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n");
-                    break;
-                case 7:
-                    Console.WriteLine("\t######\n" +
-                                      "\t#    #\n" +
-                                      "\t    #\n" +
-                                      "\t  #####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n");
-                    break;
-                case 8:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n");
-                    break;
-                case 9:
-                    Console.WriteLine("\t#####\n" +
-                                      "\t#   #\n" +
-                                      "\t#   #\n" +
-                                      "\t#####\n" +
-                                      "\t    #\n" +
-                                      "\t    #\n" +
-                                      "\t#####\n");
-                    break;
+                string enteredValue;
+                int enteredNumber;
+                bool parseResult;
+
+                do
+                {
+                    Console.WriteLine("Чтобы закончить выполнение задания, введите exit или закрыть\n");
+                    Console.Write("Введите целое число от 0 до 9: ");
+                    enteredValue = Console.ReadLine();
+                    parseResult = int.TryParse(enteredValue, out enteredNumber);
+
+                    if (parseResult)
+                    {
+                        if (enteredNumber >= 0 && enteredNumber <= 9)
+                        {
+                            Console.WriteLine(numberPictures[enteredNumber]);
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Red;
+                            Console.WriteLine("\nВы ввели число меньше 0 или больше 9!\n");
+                            Thread.Sleep(3000);
+                            Console.ResetColor();
+                        }
+                    }
+                    else if (enteredValue.ToLower() == "exit" || enteredValue.ToLower() == "закрыть")
+                    {
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        throw new Exception("\nВы ввели не число или оно является дробным!");
+                    }
+                } while (!(enteredValue.ToLower() == "exit" || enteredValue.ToLower() == "закрыть"));
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+                Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
+                Console.ReadKey();
+                Console.Clear();
             }
         }
         enum GrouchinessLevel
@@ -137,7 +87,7 @@ namespace Решение_задач
             public GrouchinessLevel grouchinessLevel;
             public string[] grumblingPhrases;
             public int bruisesNumber;
-            public void GrandmaBlows(params string[] listSwearWords)
+            public void CountsBruises(params string[] listSwearWords)
             {
                 foreach (string word in grumblingPhrases)
                 {
@@ -198,7 +148,7 @@ namespace Решение_задач
 
                             if (firstResult && secondResult && (Array.IndexOf(randomNumbers, firstNumber) != -1) && (Array.IndexOf(randomNumbers, secondNumber) != -1))
                             {
-                                ChangeValue(randomNumbers, firstNumber, secondNumber);
+                                ChangesValue(firstNumber, secondNumber, randomNumbers);
 
                                 Console.Write("\nМассив изменился: ");
 
@@ -238,9 +188,9 @@ namespace Решение_задач
                             randomValues[i] = number;
                         }
 
-                        summ = ActionsArrayNumbers(ref product, out averageValue, randomValues);
+                        summ = CalculationsArrayNumbers(ref product, out averageValue, randomValues);
 
-                        Console.WriteLine($"\n\nСумма чисел массива равна {summ}, произведение - {product}, среднее арифметическое - {averageValue:F}");
+                        Console.WriteLine($"\nСумма чисел массива равна {summ}, произведение - {product}, среднее арифметическое - {averageValue:F}");
                         Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
                         Console.ReadKey();
                         Console.Clear();
@@ -251,50 +201,17 @@ namespace Решение_задач
                         Console.Clear();
                         Console.WriteLine("{0, 95}", "ЗАДАНИЕ №3. ПРОГРАММА ПОЛУЧАЕТ ЧИСЛО И ВЫВОДИТ НА ЭКРАН ЕГО РИСУНОК\n");
 
-                        try
-                        {
-                            int enteredNumber;
-                            string enteredValue;
-                            bool parseResult;
-
-                            do
-                            {
-                                Console.WriteLine("Чтобы закончить выполнение задания, введите exit или закрыть");
-                                Console.Write("Введите целое число от 0 до 9: ");
-                                enteredValue = Console.ReadLine();
-                                parseResult = int.TryParse(enteredValue, out enteredNumber);
-
-                                if (parseResult)
-                                {
-                                    if (enteredNumber >= 0 && enteredNumber <= 9)
-                                    {
-                                        LatticeSymbolDrawing(enteredNumber);
-                                    }
-                                    else
-                                    {
-                                        Console.BackgroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("\nВы ввели число меньше 0 или больше 9!\n");
-                                        Thread.Sleep(3000);
-                                        Console.ResetColor();
-                                    }
-                                }
-                                else if (enteredValue.ToLower() == "exit" || enteredValue.ToLower() == "закрыть")
-                                {
-                                    Console.Clear();
-                                }
-                                else
-                                {
-                                    throw new Exception("\nВы ввели не число или оно является дробным!");
-                                }
-                            } while (!(enteredValue.ToLower() == "exit" || enteredValue.ToLower() == "закрыть"));
-                        }
-                        catch (Exception exception)
-                        {
-                            Console.WriteLine(exception.Message);
-                            Console.Write("Чтобы закончить выполнение упражнения, нажмите на любую кнопку ");
-                            Console.ReadKey();
-                            Console.Clear();
-                        }
+                        string[] numbersPictures = { "\t#####\n\t#   #\n\t#   #\n\t#   #\n\t#   #\n\t#   #\n\t#####\n",
+                                                     "\t    #\n\t  # #\n\t #  #\n\t    #\n\t    #\n\t    #\n\t    #\n",
+                                                     "\t#####\n\t    #\n\t    #\n\t#####\n\t#    \n\t#    \n\t#####\n",
+                                                     "\t#####\n\t    #\n\t    #\n\t#####\n\t    #\n\t    #\n\t#####\n",
+                                                     "\t#   #\n\t#   #\n\t#   #\n\t#####\n\t    #\n\t    #\n\t    #\n",
+                                                     "\t#####\n\t#    \n\t#    \n\t#####\n\t    #\n\t    #\n\t#####\n",
+                                                     "\t#####\n\t#    \n\t#    \n\t#####\n\t#   #\n\t#   #\n\t#####\n",
+                                                     "\t######\n\t#    #\n\t    #\n\t  #####\n\t    #\n\t    #\n\t    #\n",
+                                                     "\t#####\n\t#   #\n\t#   #\n\t#####\n\t#   #\n\t#   #\n\t#####\n",
+                                                     "\t#####\n\t#   #\n\t#   #\n\t#####\n\t    #\n\t    #\n\t#####\n" };
+                        DrawingNumbers(numbersPictures);    
                         break;
 
                     case "4":
@@ -315,7 +232,7 @@ namespace Решение_задач
                         Vitya.grouchinessLevel = VityagrouchinessLevel;
                         Vitya.grumblingPhrases = VityaGrumblingPhrases;
                         Vitya.bruisesNumber = 0;
-                        Vitya.GrandmaBlows(listSwearWords);
+                        Vitya.CountsBruises(listSwearWords);
 
                         Grandfather Vasya = new Grandfather();
                         Vasya.name = "Вася";
@@ -323,7 +240,7 @@ namespace Решение_задач
                         Vasya.grouchinessLevel = VasyagrouchinessLevel;
                         Vasya.grumblingPhrases = VasyaGrumblingPhrases;
                         Vasya.bruisesNumber = 0;
-                        Vasya.GrandmaBlows(listSwearWords);
+                        Vasya.CountsBruises(listSwearWords);
 
                         Grandfather Dima = new Grandfather();
                         Dima.name = "Дима";
@@ -331,7 +248,7 @@ namespace Решение_задач
                         Dima.grouchinessLevel = DimagrouchinessLevel;
                         Dima.grumblingPhrases = DimaGrumblingPhrases;
                         Dima.bruisesNumber = 0;
-                        Dima.GrandmaBlows(listSwearWords);
+                        Dima.CountsBruises(listSwearWords);
 
                         Grandfather Kolya = new Grandfather();
                         Kolya.name = "Коля";
@@ -339,7 +256,7 @@ namespace Решение_задач
                         Kolya.grouchinessLevel = KolyagrouchinessLevel;
                         Kolya.grumblingPhrases = KolyaGrumblingPhrases;
                         Kolya.bruisesNumber = 0;
-                        Kolya.GrandmaBlows(listSwearWords);
+                        Kolya.CountsBruises(listSwearWords);
 
                         Grandfather Peter = new Grandfather();
                         Peter.name = "Петя";
@@ -347,7 +264,7 @@ namespace Решение_задач
                         Peter.grouchinessLevel = PetergrouchinessLevel;
                         Peter.grumblingPhrases = PeterGrumblingPhrases;
                         Peter.bruisesNumber = 0;
-                        Peter.GrandmaBlows(listSwearWords);
+                        Peter.CountsBruises(listSwearWords);
 
                         Console.WriteLine($"Дед {Vitya.name} имеет {Vitya.bruisesNumber} синяка, дед {Vasya.name} - {Vasya.bruisesNumber}, " +
                                           $"дед {Dima.name} - {Dima.bruisesNumber}, дед {Kolya.name} - {Kolya.bruisesNumber}, " +
